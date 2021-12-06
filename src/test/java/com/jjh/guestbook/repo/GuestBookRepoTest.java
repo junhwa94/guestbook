@@ -1,9 +1,7 @@
 package com.jjh.guestbook.repo;
 
-import com.jjh.guestbook.dto.GuestBookDTO;
 import com.jjh.guestbook.entity.GuestBook;
 import com.jjh.guestbook.service.GuestBookService;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -54,16 +52,16 @@ public class GuestBookRepoTest {
 
     /* 301번 제목, 글 삽입 테스트 guestBookDTO를 guestBook entity로 변환 테스트*/
 //    @Test
-    public void insertDTO(){
-
-        GuestBookDTO guestBookDTO = GuestBookDTO.builder()
-                .title("DTO제목")
-                .content("DTO내용")
-                .writer("DTOuser")
-                .build();
-
-        guestBookService.guestBookInsert(guestBookDTO);
-
-
-    }
+//    public void insertDTO(){
+//
+//        GuestBookDTO guestBookDTO = GuestBookDTO.builder()
+//                .title("DTO제목")
+//                .content("DTO내용")
+//                .writer("DTOuser")
+//                .build();
+//
+//        guestBookService.guestBookInsert(guestBookDTO);
+//
+//
+//    }
 }

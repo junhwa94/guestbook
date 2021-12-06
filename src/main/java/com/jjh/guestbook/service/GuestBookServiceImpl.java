@@ -1,5 +1,6 @@
 package com.jjh.guestbook.service;
 
+
 import com.jjh.guestbook.dto.GuestBookDTO;
 import com.jjh.guestbook.dto.PageRequestDTO;
 import com.jjh.guestbook.dto.PageResultDTO;
@@ -18,6 +19,8 @@ import java.util.function.Function;
 public class GuestBookServiceImpl implements GuestBookService{
 
     private final GuestBookRepo repo;
+
+
 
     @Override
     public Long guestBookInsert(GuestBookDTO dto){

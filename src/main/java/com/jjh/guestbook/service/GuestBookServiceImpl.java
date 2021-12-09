@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor // 의존성 자동 주입
@@ -43,6 +44,14 @@ public class GuestBookServiceImpl implements GuestBookService{
 
 
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public GuestBookDTO read(Long gno) {
+
+        Optional<GuestBook> result = repo.findById(gno);
+
+        return result.isPresent()? entityToDto(result.get()): null;
     }
 
 

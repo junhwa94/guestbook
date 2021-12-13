@@ -4,13 +4,9 @@ import com.jjh.guestbook.dto.GuestBookDTO;
 import com.jjh.guestbook.dto.PageRequestDTO;
 import com.jjh.guestbook.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -18,8 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor // 자동 주입을 위한 어노테이션
 public class GuestBookController {
 
-    @Autowired
-    GuestBookService service;
+    private final GuestBookService service; //final로 선언
 
 
     @GetMapping("/")
@@ -54,7 +49,8 @@ public class GuestBookController {
 
     }
 
-    @GetMapping("/read")
+
+    @GetMapping({"/read", "/modify"})
     public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
 
         GuestBookDTO dto = service.read(gno);
@@ -62,4 +58,29 @@ public class GuestBookController {
         model.addAttribute("dto", dto);
 
     }
+
+    @GetMapping("/remove")
+    public String remove(long gno, RedirectAttributes redirectAttributes, @ModelAttribute("requestDTO") PageRequestDTO requestDTO){
+
+        service.remove(gno);
+
+        redirectAttributes.addFlashAttribute("msg2", gno);
+
+        return "redirect:/guestbook/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(GuestBookDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
+
+        // 수정해야하는 글 정보GuestBookDTO, 기존의 페이지 정보유지하기 PageRequestDTO
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("gno", dto.getGno());
+
+        return "redirect:/guestbook/read";
+
+    }
+
 }

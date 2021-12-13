@@ -21,8 +21,7 @@ public class GuestBookServiceImpl implements GuestBookService{
 
     private final GuestBookRepo repo;
 
-
-
+    // 방명록 등록
     @Override
     public Long guestBookInsert(GuestBookDTO dto){
 
@@ -33,6 +32,7 @@ public class GuestBookServiceImpl implements GuestBookService{
         return entity.getGno();
     }
 
+    // 방명록 페이징
     @Override
     public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO) {
 
@@ -46,6 +46,7 @@ public class GuestBookServiceImpl implements GuestBookService{
         return new PageResultDTO<>(result, fn);
     }
 
+    // 방명록 조회
     @Override
     public GuestBookDTO read(Long gno) {
 
@@ -54,5 +55,26 @@ public class GuestBookServiceImpl implements GuestBookService{
         return result.isPresent()? entityToDto(result.get()): null;
     }
 
+    // 방명록 삭제
+    @Override
+    public void remove(Long gno) {
 
+        repo.deleteById(gno);
+    }
+
+    // 방명록 수정
+    @Override
+    public void modify(GuestBookDTO dto) {
+        // 업데이트 하는 항목은 제목과 내용
+        Optional<GuestBook> result = repo.findById(dto.getGno());
+        if(result.isPresent()) {
+
+            GuestBook entity = result.get();
+
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getContent());
+
+            repo.save(entity);
+        }
+    }
 }

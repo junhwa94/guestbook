@@ -7,8 +7,10 @@ import com.jjh.guestbook.entity.GuestBook;
 
 public interface GuestBookService {
 
+    // 방명록 등록
     Long guestBookInsert(GuestBookDTO dto);
 
+    // 방명록 페이징
     PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO requestDTO);
 
     default GuestBook dtoToEntity(GuestBookDTO dto){
@@ -39,7 +41,15 @@ public interface GuestBookService {
 
     }
 
+    // 방명록 조회
     GuestBookDTO read(Long gno);
+
+    // 방명록 삭제
+    void remove(Long gno);
+
+    // 방명록 수정
+    void modify(GuestBookDTO dto);
+
 
 
 

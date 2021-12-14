@@ -74,44 +74,44 @@
             </div>
         </div>
 
-        <div class="modal2" tabindex="-1" role="dialog">
+ <!--        모달창
+        <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">메세지</h5>
-                        <button type="button" class="close" data-dismiss="modal2" aria-label="Close">
+                        <h5 class="modal-title">메세지222</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>삭제가 완료되었습니다.</p>
+                        <p>삭제가 완료되었습니다444.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal2">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
 
-
+ -->
 
 
 
         <!--        inline 속성을 이용해서 처리하면 별도의 타입 처리가 필요하지 않기 때문에
                     새로운 글이 등록되면 해당 글의 번호를 받아오고,
                     단순한 링크 이동의 경우에는 자동으로 null 처리가 된다. -->
-        <script th:inline="javascript">
+        <script>
 
-            var msg = [[${msg}]];
+            var msg = '[[${msg}]]';
             if(msg) {
                 $(".modal").modal();
             }
 
-            var msg2 = [[${msg2}]];
-            if(msg2) {
-                $(".modal2").modal2();
-            }
+            
+
+
 
         </script>
 

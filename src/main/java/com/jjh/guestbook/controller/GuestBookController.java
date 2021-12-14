@@ -2,8 +2,10 @@ package com.jjh.guestbook.controller;
 
 import com.jjh.guestbook.dto.GuestBookDTO;
 import com.jjh.guestbook.dto.PageRequestDTO;
+import com.jjh.guestbook.repo.GuestBookRepo;
 import com.jjh.guestbook.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class GuestBookController {
 
     private final GuestBookService service; //final로 선언
+
+    @Autowired
+    GuestBookRepo gRepo;
 
 
     @GetMapping("/")
@@ -29,6 +34,8 @@ public class GuestBookController {
         model.addAttribute("result", service.getList(pageRequestDTO));
 
     }
+
+
 
     @GetMapping("/register")
     public void register(){
@@ -49,6 +56,15 @@ public class GuestBookController {
 
     }
 
+    @PostMapping("/remove")
+    public String remove(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO){
+
+        service.remove(gno);
+
+
+        return "redirect:/guestbook/list";
+    }
+
 
     @GetMapping({"/read", "/modify"})
     public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
@@ -59,15 +75,7 @@ public class GuestBookController {
 
     }
 
-    @GetMapping("/remove")
-    public String remove(long gno, RedirectAttributes redirectAttributes, @ModelAttribute("requestDTO") PageRequestDTO requestDTO){
 
-        service.remove(gno);
-
-        redirectAttributes.addFlashAttribute("msg2", gno);
-
-        return "redirect:/guestbook/list";
-    }
 
     @PostMapping("/modify")
     public String modify(GuestBookDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
